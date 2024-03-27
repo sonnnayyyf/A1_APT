@@ -42,8 +42,11 @@ public:
      * @return the user input.
      */
     static std::string readInput();
+    static std::string readInput(std::string &msg);
 
     static void printInvalidInput();
+
+    static void waitForEnter();
 
 };
 #endif

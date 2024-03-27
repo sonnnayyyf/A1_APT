@@ -64,3 +64,18 @@ string Helper::readInput()
 
     return input;
 }
+
+string Helper::readInput(string& msg){
+    std::getline(std::cin, msg);
+    if (std::cin.eof()==1) {
+        std::cin.clear();
+        std::cin.ignore();
+        exit(0);
+    }
+    return msg; // return the input string
+}
+
+void Helper::waitForEnter() {
+        std::cout << "Press Enter to continue...";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }

@@ -1,17 +1,41 @@
 #include "game.h"
 #include "helper.h"
-
+#include "board.h"
+#include "helper.h"
+#include <iostream>
 using std::string;
-using namespace std;
+using std::cout;
+using std::endl;
+using std::cin;
+using std::exit;
+using std::vector;
+using std::getline;
+using std::isdigit;
 
-void displayMainMenu() {
+int mainMenu() {
+    string inp;
+    bool firstTime = true;
+
+    // Display the menu once, outside of the loop
     cout << "Welcome to Vacuum Cleaning Game!" << endl;
     cout << "-----------------------------" << endl;
     cout << "1. Play Game" << endl;
     cout << "2. Show student information" << endl;
     cout << "3. Quit" << endl;
-    cout << "Please enter your choice: ";
+    cout << "-----------------------------" << endl;
+
+    while (inp.length() != 1 || isdigit(inp[0]) == false || inp[0] < '1' || inp[0] > '3') {
+        if (!firstTime){
+            Helper::printInvalidInput();
+        }
+        cout << "Please enter your choice: ";
+        Helper::readInput(inp);
+        firstTime = false;
+    }
+    int choice = stoi(inp); // Convert string to integer
+    return choice;
 };
+
 void displayStudentInfo() {
     cout << "-----------------------------------" << endl;
     cout << "Name: Tran Hoang Son" << endl;
@@ -20,40 +44,34 @@ void displayStudentInfo() {
     cout << "-----------------------------------" << endl;
 };
 
-int main()
+int main() 
 {
-    int choice;
-
     // Main menu loop:
 
     while (true) {
-        displayMainMenu();
-        std::cin >> choice;
+        int choice = mainMenu();
+        string command = " ";
         
         switch (choice) {
-            case 1:
+            case 1: {
                 
-            case 2:
-                displayStudentInfo();
-                while (true) {
-                    cout << "Please enter 0 to return to the main menu: ";
-                    std::cin >> choice;
-                    if (choice == 0) // Exit student info display
-                        break;
-                    else
-                        std::cout << "Invalid choice. Please enter 0 to return to the main menu." << std::endl;
+                Game game;
+                while (command != "quit"){
+                    
+                    game.start();
                 }
                 break;
-            case 3:
-                std::cout << "Exiting..." << std::endl;
-                return 0;
-            default:
-                std::cout << "Invalid choice. Please try again." << std::endl;
-                
+            }
+            case 2:
+                displayStudentInfo();
+                Helper::waitForEnter();
                 break;
+            case 3:
+                cout << "Exiting program..." << endl;
+                return EXIT_SUCCESS;
         }
-    }
-
+        
+    }        
     return EXIT_SUCCESS;
 }
 
