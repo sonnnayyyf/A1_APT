@@ -35,6 +35,7 @@ class Board
 
 private:
     std::vector<std::vector<Cell>>* board;
+    int* boardDimension;
 
 public:
 
@@ -100,6 +101,8 @@ public:
 
     */
     void display(Player* player);
+
+    void pBoard();
 };
 
 

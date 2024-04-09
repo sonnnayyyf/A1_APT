@@ -54,13 +54,23 @@ int main()
         
         switch (choice) {
             case 1: {
-                
-                Game game;
+
                 while (command != "quit"){
+                
+                    Game game;
+                
+                    game.initPlayerLoop(command);
+         
+                    if (command != "quit"){
+                        game.start();
+                    }
+
+                    // cout << "\nTotal player moves: " << game.getPlayerMoves() << endl;
+                
                     
-                    game.start();
+                    command = "";
+                    break;
                 }
-                break;
             }
             case 2:
                 displayStudentInfo();
