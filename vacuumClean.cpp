@@ -52,35 +52,23 @@ int main()
         int choice = mainMenu();
         string command = " ";
         
-        switch (choice) {
-            case 1: {
-
-                while (command != "quit"){
-                
-                    Game game;
-                
-                    game.initPlayerLoop(command);
-         
-                    if (command != "quit"){
-                        game.start();
-                    }
-
-                    // cout << "\nTotal player moves: " << game.getPlayerMoves() << endl;
-                
-                    
-                    command = "";
-                    break;
+        if (choice == 1) {
+            while (command != "quit"){
+                Game game;
+                game.initPlayerLoop(command);
+                if (command != "quit"){
+                    game.start();
                 }
+                // cout << "\nTotal player moves: " << game.getPlayerMoves() << endl;
+                command = "quit";
             }
-            case 2:
-                displayStudentInfo();
-                Helper::waitForEnter();
-                break;
-            case 3:
-                cout << "Exiting program..." << endl;
-                return EXIT_SUCCESS;
+        } else if (choice == 2) {
+            displayStudentInfo();
+            Helper::waitForEnter();
+        } else if (choice == 3) {
+            cout << "Exiting program..." << endl;
+            return EXIT_SUCCESS;
         }
-        
     }        
     return EXIT_SUCCESS;
 }

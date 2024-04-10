@@ -14,7 +14,7 @@ Game::Game()
     board = new Board();
     player = new Player();
 
-    cout << "You can use the following commands to play the game:\n" << endl;
+    cout << "\nYou can use the following commands to play the game:\n" << endl;
     cout << "load <g>\n    g - number of gameboard to load" << endl;
     cout << "init <x>,<y>,<diretion>\n    x: horizontal position of the car on the board" << endl;
     cout << "    y: vertical position of the car on the board" << endl;
@@ -23,6 +23,9 @@ Game::Game()
     cout << "turn_left (or l)" << endl;
     cout << "turn_right (or r)" << endl;
     cout << "quit\n" << endl;
+
+    Helper::waitForEnter();
+    cout<< endl;
 
     board->pBoard();
     cout<< endl;
@@ -195,26 +198,27 @@ void Game::initPlayerLoop(string& command){
         }
         
         if (valid1 == true){
-
             if (valid2 == false){
                 Helper::printInvalidInput();
-                this->board->pBoard();
+                cout << "Enter your choice: ";
+                Helper::readInput(command);
+                cout << endl;
+                Helper::splitString(command, startPosVec, " ");
             }
-            
-            cout << endl;
-            cout << "You can use the following commands to play the game:" << endl;
-            cout << " load <g>" << endl;
-
-            if (firstLoad){
-                cout << " init <x>,<y>,<direction>" << endl;
+            else {
+                cout << endl;
+                cout << "You can use the following commands to play the game:" << endl;
+                cout << " load <g>" << endl;
+                if (firstLoad){
+                    cout << " init <x>,<y>,<direction>" << endl;
+                }
+                cout << " quit" << endl;
+                cout << "Enter your choice: ";
+                Helper::readInput(command);
+                cout << endl;
+                Helper::splitString(command, startPosVec, " ");
+                valid2 = false;
             }
-
-            cout << " quit" << endl;
-            cout << "Enter your choice: ";
-            Helper::readInput(command);
-            cout << endl;
-            Helper::splitString(command, startPosVec, " ");
-            valid2 = false;
         }
     }
 }
