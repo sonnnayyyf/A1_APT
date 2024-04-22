@@ -19,6 +19,9 @@ Game::Game()
     cout << "init <x>,<y>,<diretion>\n    x: horizontal position of the car on the board" << endl;
     cout << "    y: vertical position of the car on the board" << endl;
     cout << "    direction: direction of the car's movement (north, east, south, west)" << endl;
+    cout << "generate <d>,<p>" << endl;
+    cout << "    d: the dimension of the game board to be generated" << endl;
+    cout << "    p: the probability of the blocks on board to be generated randomly" << endl;
     cout << "forward (or f)" << endl;
     cout << "turn_left (or l)" << endl;
     cout << "turn_right (or r)" << endl;
@@ -38,10 +41,146 @@ Game::~Game()
 }
 
 
-void Game::start()
+void Game::start(string& command)
 {
-    //TODO
-    
+    bool firstLoad = false;
+    cout << "You can use the following commands to play the game:" << endl;
+    cout << " load <g>" << endl;
+    if (firstLoad){
+        cout << " init <x>,<y>,<direction>" << endl;
+    }
+    cout << " quit" << endl;
+    cout << "Enter your choice: ";
+    string startPos;
+    Helper::readInput(command);
+    cout << endl;
+    vector<string> startPosVec;                    
+    Helper::splitString(command, startPosVec, " ");
+    bool valid1 = true;
+    bool valid2 = false;
+    while (valid1){
+
+        if (startPosVec.size() == 1){
+
+            if (startPosVec[0] == "quit"){
+                valid1 = false;
+                command = "quit";
+                valid2 = true;
+            }
+        }
+        
+        else if (startPosVec.size() == 2){
+
+            if (startPosVec[0] == "load"){
+                if (Helper::isNumber(startPosVec[1])){
+
+                    if (stoi(startPosVec[1]) == 1 || stoi(startPosVec[1]) == 2){
+
+                        loadBoardNumber(stoi(startPosVec[1]));
+                        valid2 = true;
+                        firstLoad = true;
+                      
+                    }
+                }
+            }
+            if (firstLoad){
+                if (startPosVec[0] == "generate"){
+                    Helper::splitString(startPosVec[1], startPosVec, ",");
+
+                    if (startPosVec.size() == 2){
+                        
+                        if (Helper::isNumber(startPosVec[0])){
+                            int x = stoi(startPosVec[0]);
+                            
+                            if (x <= 20 && x >= 10){
+                                string temp = startPosVec[1];
+                                Helper::splitString(startPosVec[1], startPosVec, ".");
+
+                                if(startPosVec.size() == 2){
+                                    if (startPosVec[0] == "0" && Helper::isNumber(startPosVec[0]) && Helper::isNumber(startPosVec[1])){
+                                        double y = stod(temp);
+                                        //cout << "y was: " << y << endl;
+                                        board->resizeBoard(x,y);
+                                        valid2 = true;
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+                if (startPosVec[0] == "init"){
+
+                    Helper::splitString(startPosVec[1], startPosVec, ",");
+                    if (startPosVec.size() == 3){
+                        if (Helper::isNumber(startPosVec[0]) && Helper::isNumber(startPosVec[1])){
+
+                            int x = stoi(startPosVec[0]);
+                            int y = stoi(startPosVec[1]);
+                            string direction = startPosVec[2];
+
+                            if (direction == "north" || direction == "east" || direction == "south" || direction == "west"){
+
+                                if (board->placePlayer(Position(x,y)) == true){
+                                    bool playerSet = false;
+                                    
+                                    if (direction == "north"){
+                                        intPlayer(x,y,NORTH);
+                                        playerSet = true;
+                                    }
+                                    if (direction == "east"){
+                                        intPlayer(x,y,EAST);
+                                        playerSet = true;
+                                        
+                                    }
+                                    if (direction == "south"){
+                                        intPlayer(x,y,SOUTH);
+                                        playerSet = true;
+                                    }
+                                    if (direction == "west"){
+                                        intPlayer(x,y,WEST);
+                                        playerSet = true;
+                                    }
+                                    if (playerSet){
+                                        valid1 = false;
+                                        valid2 = true;
+                                    }
+                                }
+                            }
+                                
+                        }
+                    }
+                }
+            }
+
+        }
+        
+        if (valid1 == true){
+            if (valid2 == false){
+                Helper::printInvalidInput();
+                cout << "Enter your choice: ";
+                Helper::readInput(command);
+                cout << endl;
+                Helper::splitString(command, startPosVec, " ");
+            }
+            else {
+                cout << endl;
+                cout << "You can use the following commands to play the game:" << endl;
+                cout << " load <g>" << endl;
+                if (firstLoad){
+                    cout << " init <x>,<y>,<direction>" << endl;
+                    cout << " generate <d>,<p>" << endl;
+                }
+                cout << " quit" << endl;
+                cout << "Enter your choice: ";
+                Helper::readInput(command);
+                cout << endl;
+                Helper::splitString(command, startPosVec, " ");
+                valid2 = false;
+            }
+        }
+    }
 }
 
 bool Game::loadBoard()
@@ -95,130 +234,53 @@ int Game::intPlayer(int x, int y, Direction z)
 
 bool Game::initializePlayer()
 {
-    //TODO
-    return false; // feel free to revise this line.
+    return false;
 }
 
 void Game::play()
 {
-    //TODO
-}
-
-void Game::initPlayerLoop(string& command){
-    //first load ensures that the board has been loaded at least once
-    bool firstLoad = false;
-    cout << "You can use the following commands to play the game:" << endl;
-    cout << " load <g>" << endl;
-    if (firstLoad){
-        cout << " init <x>,<y>,<direction>" << endl;
-    }
+    string gamer;
+    cout << "\nYou can use the following commands to play the game: " << endl;
+    cout << " forward (or f)" << endl;
+    cout << " turn_left (or l)" << endl;
+    cout << " turn_right (or r)" << endl;
     cout << " quit" << endl;
     cout << "Enter your choice: ";
-    string startPos;
-    Helper::readInput(command);
-    cout << endl;
-    vector<string> startPosVec;                    
-    ///*
-    Helper::splitString(command, startPosVec, " ");
-    //cout << "splitString worked" << endl;
-    bool valid1 = true;
-    bool valid2 = false;
-    while (valid1){
-        //cout<< "command was: " <<command<<endl;
-        if (startPosVec.size() == 1){
-            //cout<< "size 1 command was: " <<command<<endl;
-            if (startPosVec[0] == "quit"){
-                valid1 = false;
-                command = "quit";
-                valid2 = true;
+    Helper::readInput(gamer);
+
+    while (gamer != "quit"){
+
+        if (gamer == "forward" || gamer == "turn_left" || gamer == "turn_right" || gamer == "r" || gamer == "l" || gamer == "f"){
+            if (gamer == "turn_left" || gamer == "l"){                
+                (*player).turnDirection(TURN_LEFT);
             }
+            else if (gamer == "turn_right" || gamer == "r"){                
+                (*player).turnDirection(TURN_RIGHT);
+            }
+            else if (gamer == "forward" || gamer == "f"){
+                (*board).movePlayerForward(player);
+            }
+            cout << endl;
+            (*board).display(player);
+            
+            cout << "\nYou can use the following commands to play the game: " << endl;
+            cout << " forward (or f)" << endl;
+            cout << " turn_left (or l)" << endl;
+            cout << " turn_right (or r)" << endl;
+            cout << " quit" << endl;
+            cout << "Enter your choice: ";
+            Helper::readInput(gamer);
+            
         }
-        
-        else if (startPosVec.size() == 2){
-            //cout<< "size 2 command was: " <<command<<endl;
-            if (startPosVec[0] == "load"){
-                if (Helper::isNumber(startPosVec[1])){
-                    //ensuring input is valid
-                    if (stoi(startPosVec[1]) == 1 || stoi(startPosVec[1]) == 2){
-
-                        loadBoardNumber(stoi(startPosVec[1]));
-                        valid2 = true;
-                        firstLoad = true;
-                      
-                    }
-                }
-            }
-            if (firstLoad){
-                
-                if (startPosVec[0] == "init"){
-
-                    Helper::splitString(startPosVec[1], startPosVec, ",");
-                    if (startPosVec.size() == 3){
-                        if (Helper::isNumber(startPosVec[0]) && Helper::isNumber(startPosVec[1])){
-
-                            int x = stoi(startPosVec[0]);
-                            int y = stoi(startPosVec[1]);
-                            string direction = startPosVec[2];
-                            ///*
-                            //ensuring direction is valid
-                            if (direction == "north" || direction == "east" || direction == "south" || direction == "west"){
-                                //ensuring it is a valid position
-                                if (board->placePlayer(Position(x,y)) == true){
-                                    bool playerSet = false;
-                                    
-                                    if (direction == "north"){
-                                        intPlayer(x,y,NORTH);
-                                        playerSet = true;
-                                    }
-                                    if (direction == "east"){
-                                        intPlayer(x,y,EAST);
-                                        playerSet = true;
-                                        
-                                    }
-                                    if (direction == "south"){
-                                        intPlayer(x,y,SOUTH);
-                                        playerSet = true;
-                                    }
-                                    if (direction == "west"){
-                                        intPlayer(x,y,WEST);
-                                        playerSet = true;
-                                    }
-                                    if (playerSet){
-                                        valid1 = false;
-                                        valid2 = true;
-                                    }
-                                }
-                            }
-                                
-                        }
-                    }
-                }
-            }
-
-        }
-        
-        if (valid1 == true){
-            if (valid2 == false){
-                Helper::printInvalidInput();
-                cout << "Enter your choice: ";
-                Helper::readInput(command);
-                cout << endl;
-                Helper::splitString(command, startPosVec, " ");
-            }
-            else {
-                cout << endl;
-                cout << "You can use the following commands to play the game:" << endl;
-                cout << " load <g>" << endl;
-                if (firstLoad){
-                    cout << " init <x>,<y>,<direction>" << endl;
-                }
-                cout << " quit" << endl;
-                cout << "Enter your choice: ";
-                Helper::readInput(command);
-                cout << endl;
-                Helper::splitString(command, startPosVec, " ");
-                valid2 = false;
-            }
+        else{
+            cout << endl;
+            Helper::printInvalidInput();
+            cout << "Enter your choice: ";
+            Helper::readInput(gamer);
         }
     }
+}
+
+int Game::getPlayerMoves(){
+    return player->moves;
 }

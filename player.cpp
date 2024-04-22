@@ -14,19 +14,21 @@ Position::Position(int x, int y)
 
 Player::Player()
 {
-    
+    this->position = Position();
+    this->moves = 0;
 }
 
 void Player::initialisePlayer(Position* position, Direction direction)
 {
     this->position = *position;
     this->direction = direction;
+    this->moves = 0;
 }
 
 void Player::turnDirection(TurnDirection turnDirection)
 {
     if (turnDirection == TURN_LEFT){
-        //cout<< "turn left" << endl;
+        
         if (this->direction == NORTH){
             this->direction = WEST;
         }
@@ -66,7 +68,8 @@ Position Player::getNextForwardPosition()
 
 void Player::updatePosition(Position position)
 {
-    //TODO
+    this->position = position;
+    this->moves++;
 }
 
 void Player::displayDirection()

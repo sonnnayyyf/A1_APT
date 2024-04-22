@@ -103,6 +103,8 @@ public:
     void display(Player* player);
 
     void pBoard();
+
+    void resizeBoard(int row, double prob);
 };
 
 

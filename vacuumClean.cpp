@@ -26,6 +26,7 @@ int mainMenu() {
 
     while (inp.length() != 1 || isdigit(inp[0]) == false || inp[0] < '1' || inp[0] > '3') {
         if (!firstTime){
+            cout << endl;
             Helper::printInvalidInput();
         }
         cout << "Please enter your choice: ";
@@ -55,11 +56,11 @@ int main()
         if (choice == 1) {
             while (command != "quit"){
                 Game game;
-                game.initPlayerLoop(command);
+                game.start(command);
                 if (command != "quit"){
-                    game.start();
+                    game.play();
                 }
-                // cout << "\nTotal player moves: " << game.getPlayerMoves() << endl;
+                cout << "\nTotal player moves: " << game.getPlayerMoves() << endl;
                 command = "quit";
             }
         } else if (choice == 2) {

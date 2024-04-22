@@ -42,12 +42,6 @@ private:
      */
     bool initializePlayer();
 
-    /**
-     * Play the game and move the player interactively.
-     */
-    void play();
-
-
 public:
 
     // initialize and destroy the member variables
@@ -66,10 +60,11 @@ public:
      * objects and handle interaction with the user (reading inputs from the console,
      * error checking, etc...).
      */
-    void start();
+    void start(string& command);
     void loadBoardNumber(int x);
-    void initPlayerLoop(string& command);
     int intPlayer(int x, int y, Direction z);
+    int getPlayerMoves();
+    void play();
 };
 
 
