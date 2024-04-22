@@ -75,6 +75,7 @@ string Helper::readInput(string& msg){
     return msg; // return the input string
 }
 
+// this function is added to improve the user experience
 void Helper::waitForEnter() {
         std::cout << "Press Enter to continue...";
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

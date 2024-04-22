@@ -40,12 +40,10 @@ Board::Board()
 {
     boardDimension = new int(11);
     board = new vector<vector<Cell>>(*boardDimension, vector<Cell>(*boardDimension, EMPTY));
-    //cout << "This is boardGame ref in class::board init: "<< board << endl;
-    //cout << this->board << endl;
+
     for (int i = 0; i<*boardDimension; i++) {
         for (int j = 0; j<*boardDimension; j++) {
             
-            //boardGame[i][j] = emp;
             if (i == 0 && j == 0){
                 (*board)[i][j] = BLOCKED;
             }
@@ -71,15 +69,13 @@ Board::~Board()
 
 void Board::load(int boardId)
 {
-    // deleting previous board and boardDimension
     delete board;
     delete boardDimension;
 
     boardDimension = new int(11);
     board = new vector<vector<Cell>>(*boardDimension, vector<Cell>(*boardDimension, EMPTY));
     string boardGameStr[*boardDimension][*boardDimension] = { " " };
-    
-    //ensuring the number rows/columns cant be accessed by car
+
     for (int i = 0; i<*boardDimension; i++){
         for (int j = 0; j<1; j++){
             (*board)[i][j] = BLOCKED;
@@ -140,7 +136,7 @@ bool Board::placePlayer(Position position)
             toReturn = true;
         }
     }
-    //if position is out of bounds
+
     else {
         cout << "Out of bounds area." << endl;
         toReturn = false;
@@ -219,7 +215,6 @@ void Board::display(Player* player)
 {
     string boardGameStr[*boardDimension][*boardDimension] = { " " };
 
-    //creating a string array to display the board
     for (int i =1; i<*boardDimension; i++) {
         for (int j = 1; j<*boardDimension; j++) {
                 

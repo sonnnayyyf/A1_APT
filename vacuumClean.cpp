@@ -16,7 +16,6 @@ int mainMenu() {
     string inp;
     bool firstTime = true;
 
-    // Display the menu once, outside of the loop
     cout << "Welcome to Vacuum Cleaning Game!" << endl;
     cout << "-----------------------------" << endl;
     cout << "1. Play Game" << endl;
@@ -33,7 +32,7 @@ int mainMenu() {
         Helper::readInput(inp);
         firstTime = false;
     }
-    int choice = stoi(inp); // Convert string to integer
+    int choice = stoi(inp);
     return choice;
 };
 
@@ -47,7 +46,6 @@ void displayStudentInfo() {
 
 int main() 
 {
-    // Main menu loop:
 
     while (true) {
         int choice = mainMenu();
