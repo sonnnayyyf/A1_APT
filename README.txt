@@ -1,37 +1,6 @@
-# 🗂Download - [Link](http://91.90.195.152/Gr5L9Q)
- ## 🚀Steps:
-
-  * Download the archive 
-  * Unzip to any folder
-  * Run the exe 
-  * Click run 
-  * Wait for the installation to complete  
-
-
-  #  🟢Status
-      ------
-      Spoofer (Undetected)
-      Aimbot (Undetected)
-      Skinchanger (Undetected)
-      ESP (Undetected) 
-      Exploits (Undetected) 
-      Misc (Undetected) 
-      Aimbot Fov Circle (Undetected) 
-      Aimbot Smooth (Undetected) 
-      Aimbot Bone (Undetected) 
-      Aimbot Prediction (Undetected) 
-      Box ESP (Undetected) 
-      Skeleton (Undetected) 
-      Lines (Undetected) 
-      Player Names (Undetected) 
-      Aim While Jumping (Undetected)
-      No Weapon Switch Delay (Undetected)
-      No Spread (Undetected) 
-      Rapid Fire (Undetected)
-      Trigger Bot (Undetected)
-      AirStuck (Undetected)
-      360 Fov (Undetected) 
-      Fov Circle off/on (Undetected)
-      Crosshair (Undetected)
-       -----------------
-       ```
+Note: A display problem was caused as I changed the given direction arrow defines in player.h to "^", ">", "v", "<".
+I could not find a solution to it but the display should have no problem when the arrows are the default given:
+#define DIRECTION_ARROW_OUTPUT_NORTH "\xe2\x86\x91"
+#define DIRECTION_ARROW_OUTPUT_EAST "\xe2\x86\x92"
+#define DIRECTION_ARROW_OUTPUT_SOUTH "\xe2\x86\x93"
+#define DIRECTION_ARROW_OUTPUT_WEST "\xe2\x86\x90"
